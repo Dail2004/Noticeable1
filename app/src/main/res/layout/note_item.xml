@@ -5,12 +5,15 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingHorizontal="15dp"
+        android:paddingTop="15dp"
         android:text="Hello"
+        android:layout_margin="10dp"
         android:id="@+id/item_title"
         android:textColor="#B1B1B1"
         android:textSize="24sp"
-        android:layout_height="60dp"/>
-
-
+        android:layout_height="70dp"
+        android:background="@drawable/serch_title"/>
+    
 </LinearLayout>

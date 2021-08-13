@@ -15,9 +15,16 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:backgroundTint="#131212"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Noticeable.PopupOverlay" />
+            app:popupTheme="@style/Theme.Noticeable.PopupOverlay">
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:text="Заметки"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
