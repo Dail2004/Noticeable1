@@ -7,28 +7,31 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.noticeable.R;
 import com.example.noticeable.databinding.NoteItemBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
-    NoteItemBinding binding;
-    ArrayList<String> list=new ArrayList<>();
 
+    List<String> list = new ArrayList<>();
+    NoteItemBinding binding;
+
+    public void addTaskModel(String noteModel) {
+        list.add(noteModel);
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = NoteItemBinding.inflate(LayoutInflater.from(parent.getContext()));
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item,parent,false);
-        return new MyViewHolder(view);
+        binding = NoteItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new MyViewHolder(binding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.OnBind(list.get(position));
-
     }
 
     @Override
@@ -40,8 +43,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
         }
-        private void OnBind(String s){
 
-    }
+        private void OnBind(String s) {
+            binding.itemTitle.setText(s);
+        }
     }
 }

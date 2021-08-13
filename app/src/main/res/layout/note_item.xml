@@ -2,21 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="wrap_content"
         android:text="Hello"
+        android:id="@+id/item_title"
         android:textColor="#B1B1B1"
         android:textSize="24sp"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello"
-        android:textColor="#B1B1B1"
-        android:textSize="18sp" />
+        android:layout_height="60dp"/>
 
 
 </LinearLayout>
