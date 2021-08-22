@@ -1,5 +1,6 @@
 package com.example.noticeable.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +9,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.noticeable.databinding.NoteItemBinding;
+import com.example.noticeable.model.NoteModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder>{
 
-    List<String> list = new ArrayList<>();
+    ArrayList<NoteModel> list = new ArrayList<>();
     NoteItemBinding binding;
 
-    public void addTaskModel(String noteModel) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void addTaskModel(NoteModel noteModel) {
         list.add(noteModel);
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filteredList(ArrayList<NoteModel> upFilteredList){
+        list=upFilteredList;
         notifyDataSetChanged();
     }
 
@@ -39,13 +48,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         return list.size();
     }
 
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
         }
-
-        private void OnBind(String s) {
-            binding.itemTitle.setText(s);
+        private void OnBind(NoteModel s) {
+            binding.date.setText(s.getDate());
+            binding.itemTitle.setText(s.getTextNote());
         }
     }
 }

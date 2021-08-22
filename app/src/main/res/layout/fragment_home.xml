@@ -8,6 +8,7 @@
     tools:context=".ui.home.HomeFragment">
 
     <EditText
+        android:id="@+id/search"
         android:layout_marginHorizontal="28dp"
         android:hint="Поиск"
         android:textColorHint="#505050"
@@ -23,8 +24,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="80dp"
-        android:paddingTop="20dp"
-        android:paddingHorizontal="20dp"
+        android:paddingTop="10dp"
+        android:paddingHorizontal="10dp"
         android:layout_width="match_parent"
         android:id="@+id/recycler_view"
         tools:listitem="@layout/note_item"

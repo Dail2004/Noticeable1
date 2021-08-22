@@ -1,5 +1,6 @@
 package com.example.noticeable.ui.note;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,10 @@ import android.view.ViewGroup;
 import com.example.noticeable.R;
 import com.example.noticeable.constant.Constants;
 import com.example.noticeable.databinding.FragmentNoteBinding;
+import com.example.noticeable.model.NoteModel;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class NoteFragment extends Fragment {
     FragmentNoteBinding binding;
@@ -30,15 +35,27 @@ public class NoteFragment extends Fragment {
         return binding.getRoot();
     }
 
+    public String getDataConverter() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MMMM HH:mm");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+
     private void getTitle(NavController navController) {
+        binding.back.setOnClickListener(view -> {
+            close();
+        });
+        binding.date.setText(getDataConverter());
+
         binding.ready.setOnClickListener(v -> {
             String text = binding.title.getText().toString().trim();
             if (TextUtils.isEmpty(text)) {
                 binding.title.setError("Вы не правильно ввели");
-                return;
             } else {
+                NoteModel model = new NoteModel(text, getDataConverter());
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.BUNDLE_KEY, text);
+                bundle.putSerializable(Constants.BUNDLE_KEY, model);
+                bundle.putSerializable("time", model);
                 getParentFragmentManager().setFragmentResult(Constants.REQUEST_KEY, bundle);
                 Log.e("TAG", "onClick" + bundle);
                 close();

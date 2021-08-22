@@ -1,10 +1,8 @@
 package com.example.noticeable;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.Menu;
 
+import com.example.noticeable.constant.PrefHelper;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -21,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +39,11 @@ public class MainActivity extends AppCompatActivity {
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+
+
+
         binding.appBarMain.fab.setOnClickListener(view -> {
             navController.navigate(R.id.action_nav_home_to_noteFragment);
-            Log.e("TAG", "onCreate: " );
         });
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -57,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 binding.appBarMain.fab.hide();
             }
         });
+        PrefHelper.init(this);
+        if (!PrefHelper.getOnBoardIsShown()){
+            navController.navigate(R.id.onBoardFragment);
+            return;
+        }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
     @Override
     public boolean onSupportNavigateUp() {

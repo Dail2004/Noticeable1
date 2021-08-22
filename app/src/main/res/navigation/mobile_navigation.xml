@@ -31,4 +31,9 @@
         android:name="com.example.noticeable.ui.note.NoteFragment"
         android:label="fragment_note"
         tools:layout="@layout/fragment_note" />
+    <fragment
+        android:id="@+id/onBoardFragment"
+        android:name="com.example.noticeable.onBoard.OnBoardFragment"
+        android:label="fragment_on_board"
+        tools:layout="@layout/fragment_on_board" />
 </navigation>
