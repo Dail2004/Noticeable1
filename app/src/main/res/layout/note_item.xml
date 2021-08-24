@@ -18,9 +18,9 @@
 
     <TextView
         android:id="@+id/date"
-        android:layout_width="50dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="330dp"
+        android:layout_marginLeft="300dp"
         android:layout_marginTop="20dp"
         android:hint="date"
         android:textColor="#616161"

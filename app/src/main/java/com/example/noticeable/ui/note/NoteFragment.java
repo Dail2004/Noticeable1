@@ -1,6 +1,7 @@
 package com.example.noticeable.ui.note;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.noticeable.R;
+import com.example.noticeable.constant.App;
 import com.example.noticeable.constant.Constants;
 import com.example.noticeable.databinding.FragmentNoteBinding;
 import com.example.noticeable.model.NoteModel;
@@ -31,6 +33,7 @@ public class NoteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNoteBinding.inflate(inflater, container, false);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+        Context context = getContext();
         getTitle(navController);
         return binding.getRoot();
     }
@@ -54,6 +57,8 @@ public class NoteFragment extends Fragment {
             } else {
                 NoteModel model = new NoteModel(text, getDataConverter());
                 Bundle bundle = new Bundle();
+               // App.getDatabase(requireContext()).getDao().insertModel(model);
+                App.initDatabase(requireContext()).getDao().insertModel(model);
                 bundle.putSerializable(Constants.BUNDLE_KEY, model);
                 bundle.putSerializable("time", model);
                 getParentFragmentManager().setFragmentResult(Constants.REQUEST_KEY, bundle);

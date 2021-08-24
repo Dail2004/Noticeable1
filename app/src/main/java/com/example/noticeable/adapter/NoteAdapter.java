@@ -12,10 +12,8 @@ import com.example.noticeable.databinding.NoteItemBinding;
 import com.example.noticeable.model.NoteModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder>{
-
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
     ArrayList<NoteModel> list = new ArrayList<>();
     NoteItemBinding binding;
 
@@ -59,3 +57,4 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder>{
         }
     }
 }
+

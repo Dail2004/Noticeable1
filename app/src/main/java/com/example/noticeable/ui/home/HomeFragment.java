@@ -10,25 +10,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.noticeable.R;
 import com.example.noticeable.adapter.NoteAdapter;
+import com.example.noticeable.constant.App;
 import com.example.noticeable.constant.Constants;
 import com.example.noticeable.databinding.FragmentHomeBinding;
 import com.example.noticeable.model.NoteModel;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
     private FragmentHomeBinding binding;
     private NoteAdapter adapter;
     private boolean isDashboard = false;
@@ -47,6 +48,8 @@ public class HomeFragment extends Fragment {
     private void textTitle() {
         getParentFragmentManager().setFragmentResultListener(Constants.REQUEST_KEY, getViewLifecycleOwner(), (requestKey, result) -> {
             NoteModel model = (NoteModel) result.getSerializable(Constants.BUNDLE_KEY);
+            getDataFromDB();
+           // Log.e("TAG", "onCreateView: DATABASE"+ App.getDatabase(requireContext()).getDao().getAll());
             adapter.addTaskModel(model);
             if (isDashboard){
                 binding.recyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -54,6 +57,13 @@ public class HomeFragment extends Fragment {
                 binding.recyclerView.setLayoutManager(linearLayoutManager);
             }
         });
+    }
+
+    private void getDataFromDB() {
+//        App.getDatabase(requireContext()).getDao().getAll().observe(getViewLifecycleOwner(), noteModels -> {
+//            Log.e("TAG", "getDataFromDB: +"+ noteModels.get(2).getTextNote());
+//
+//        });
     }
 
     private void search() {
@@ -91,7 +101,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable  Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         adapter = new NoteAdapter();
@@ -105,6 +115,7 @@ public class HomeFragment extends Fragment {
         initView();
         textTitle();
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -127,9 +138,5 @@ public class HomeFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.noticeable.R;
 import com.example.noticeable.adapter.OnBoardAdapter;
+import com.example.noticeable.constant.PrefHelper;
 import com.example.noticeable.databinding.FragmentOnBoardBinding;
 import com.example.noticeable.model.OnBoardModel;
 
@@ -28,6 +29,8 @@ public class OnBoardFragment extends Fragment {
     OnBoardAdapter adapter;
     int list[];
     TextView[] dots;
+    List<OnBoardModel> listt;
+    boolean aBoolean = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +39,9 @@ public class OnBoardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_on_board, container, false);
         dotsMethod();
         setupOnBoardingFragment(navController);
+        if (aBoolean){
+            selectedIndicator(0);
+        }
         listener();
         skipButton();
         return binding.getRoot();
@@ -43,6 +49,7 @@ public class OnBoardFragment extends Fragment {
 
     private void start() {
         binding.startWork.setOnClickListener(view -> {
+            PrefHelper.setOnBoardIsShow();
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
             navController.navigateUp();
         });
@@ -62,11 +69,12 @@ public class OnBoardFragment extends Fragment {
                 }else{
                     binding.skip.setText("");
                 }
-                if (binding.scrollView.getCurrentItem()==2){
+                if (position==2){
                     binding.startWork.setText("Начать работу");
                 }else{
                     binding.startWork.setText("");
                 }
+                aBoolean=false;
                 selectedIndicator(position);
             }
 
@@ -110,11 +118,11 @@ public class OnBoardFragment extends Fragment {
     }
 
     private void setupOnBoardingFragment(NavController navController) {
-        List<OnBoardModel> list = new ArrayList<>();
-        list.add(new OnBoardModel("Очень удобный функционал", R.drawable.animation));
-        list.add(new OnBoardModel("Быстрый, качественный продукт", R.drawable.cutting));
-        list.add(new OnBoardModel("Куча функций и интересных фишек", R.drawable.desing));
-        adapter = new OnBoardAdapter(list, getActivity().getSupportFragmentManager());
+        listt = new ArrayList<>();
+        listt.add(new OnBoardModel("Очень удобный функционал", R.drawable.animation));
+        listt.add(new OnBoardModel("Быстрый, качественный продукт", R.drawable.cutting));
+        listt.add(new OnBoardModel("Куча функций и интересных фишек", R.drawable.desing));
+        adapter = new OnBoardAdapter(listt, getActivity().getSupportFragmentManager());
         binding.scrollView.setAdapter(adapter);
 
         binding.skip.setOnClickListener(view -> {

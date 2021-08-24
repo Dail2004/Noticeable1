@@ -11,7 +11,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -55,9 +55,11 @@ android {
         //Room
         def room_version = "2.3.0"
 
-        implementation "androidx.room:room-runtime:$room_version"
-        annotationProcessor "androidx.room:room-compiler:$room_version"
+        implementation "androidx.room:room-runtime:2.3.0"
+        annotationProcessor "androidx.room:room-compiler:2.3.0"
 
+        //Multidex
+        implementation 'com.android.support:multidex:1.0.3'
 
     }
 }
