@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.noticeable.databinding.NoteItemBinding;
 import com.example.noticeable.model.NoteModel;
+import com.example.noticeable.room.NoteDao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
-    ArrayList<NoteModel> list = new ArrayList<>();
-    NoteItemBinding binding;
+    List<NoteModel> list = new ArrayList<>();
 
     @SuppressLint("NotifyDataSetChanged")
     public void addTaskModel(NoteModel noteModel) {
@@ -23,17 +24,33 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         notifyDataSetChanged();
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     public void filteredList(ArrayList<NoteModel> upFilteredList){
         list=upFilteredList;
+        notifyDataSetChanged();
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    public void setList(List<NoteModel> list1){
+        list.clear();
+        list.addAll(list1);
+        notifyDataSetChanged();
+    }
+
+    public NoteModel getNoteAt(int position){
+        return list.get(position);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void delete(int position){
+        list.remove(position);
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = NoteItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new MyViewHolder(binding.getRoot());
+        return new MyViewHolder(NoteItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -48,8 +65,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
+        NoteItemBinding binding;
+
+        public MyViewHolder(@NonNull NoteItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
         private void OnBind(NoteModel s) {
             binding.date.setText(s.getDate());

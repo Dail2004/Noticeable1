@@ -57,7 +57,6 @@ public class NoteFragment extends Fragment {
             } else {
                 NoteModel model = new NoteModel(text, getDataConverter());
                 Bundle bundle = new Bundle();
-               // App.getDatabase(requireContext()).getDao().insertModel(model);
                 App.initDatabase(requireContext()).getDao().insertModel(model);
                 bundle.putSerializable(Constants.BUNDLE_KEY, model);
                 bundle.putSerializable("time", model);

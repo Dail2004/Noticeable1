@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.noticeable.R;
@@ -35,21 +37,30 @@ public class HomeFragment extends Fragment {
     private boolean isDashboard = false;
     StaggeredGridLayoutManager staggeredGridLayoutManager;
     LinearLayoutManager linearLayoutManager;
-    ArrayList<NoteModel> list = new ArrayList<>();
+
+    List<NoteModel> list = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.recyclerView.setAdapter(adapter);
-        search();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        linearLayoutManager = new LinearLayoutManager(requireContext());
+        initView();
+        textTitle();
+        getDataFromDB();
+        search();
     }
 
     private void textTitle() {
         getParentFragmentManager().setFragmentResultListener(Constants.REQUEST_KEY, getViewLifecycleOwner(), (requestKey, result) -> {
             NoteModel model = (NoteModel) result.getSerializable(Constants.BUNDLE_KEY);
-            getDataFromDB();
-           // Log.e("TAG", "onCreateView: DATABASE"+ App.getDatabase(requireContext()).getDao().getAll());
             adapter.addTaskModel(model);
             if (isDashboard){
                 binding.recyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -60,10 +71,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void getDataFromDB() {
-//        App.getDatabase(requireContext()).getDao().getAll().observe(getViewLifecycleOwner(), noteModels -> {
-//            Log.e("TAG", "getDataFromDB: +"+ noteModels.get(2).getTextNote());
-//
-//        });
+        App.initDatabase(requireContext()).getDao().getAll().observe(getViewLifecycleOwner(), noteModels -> {
+            adapter.setList(noteModels);
+            list = noteModels;
+        });
     }
 
     private void search() {
@@ -92,30 +103,33 @@ public class HomeFragment extends Fragment {
                 filterList.add(item);
             }
         }
-//        adapter.filteredList(filterList);
+        adapter.filteredList(filterList);
     }
 
     private void initView() {
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(adapter);
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                App.database.getDao().delete(list.get(viewHolder.getAdapterPosition()));
+                adapter.delete(viewHolder.getAdapterPosition());
+            }
+        }).attachToRecyclerView(binding.recyclerView);
     }
 
     @Override
     public void onCreate(@Nullable  Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
         adapter = new NoteAdapter();
-    }
+        setHasOptionsMenu(true);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        linearLayoutManager = new LinearLayoutManager(requireContext());
-        initView();
-        textTitle();
     }
-
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -133,7 +147,6 @@ public class HomeFragment extends Fragment {
                 item.setIcon(R.drawable.ic_dashboard);
             }
             binding.recyclerView.setLayoutManager(isDashboard? staggeredGridLayoutManager : linearLayoutManager);
-            binding.recyclerView.setAdapter(adapter);
         }
         return super.onOptionsItemSelected(item);
     }
