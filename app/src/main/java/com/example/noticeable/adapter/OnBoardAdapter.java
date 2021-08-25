@@ -14,7 +14,7 @@ public class OnBoardAdapter extends FragmentPagerAdapter {
 
     List<OnBoardModel> list = new ArrayList<>();
 
-    public OnBoardAdapter(List<OnBoardModel> list, FragmentManager fragmentManager){
+    public OnBoardAdapter(List<OnBoardModel> list, FragmentManager fragmentManager) {
         super(fragmentManager);
         this.list = list;
     }
@@ -22,7 +22,7 @@ public class OnBoardAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = new FirstFragment();
-        switch (position){
+        switch (position) {
             case 0:
             case 1:
             case 2:

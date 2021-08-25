@@ -39,7 +39,7 @@ public class OnBoardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_on_board, container, false);
         dotsMethod();
         setupOnBoardingFragment(navController);
-        if (aBoolean){
+        if (aBoolean) {
             selectedIndicator(0);
         }
         listener();
@@ -64,17 +64,17 @@ public class OnBoardFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                if (binding.scrollView.getCurrentItem() == 0||binding.scrollView.getCurrentItem() == 1){
+                if (binding.scrollView.getCurrentItem() == 0 || binding.scrollView.getCurrentItem() == 1) {
                     binding.skip.setText("Пропустить");
-                }else{
+                } else {
                     binding.skip.setText("");
                 }
-                if (position==2){
+                if (position == 2) {
                     binding.startWork.setText("Начать работу");
-                }else{
+                } else {
                     binding.startWork.setText("");
                 }
-                aBoolean=false;
+                aBoolean = false;
                 selectedIndicator(position);
             }
 
@@ -86,28 +86,28 @@ public class OnBoardFragment extends Fragment {
     }
 
     private void selectedIndicator(int position) {
-        for (int i = 0; i <dots.length; i++) {
-            if (i==position){
+        for (int i = 0; i < dots.length; i++) {
+            if (i == position) {
                 dots[i].setTextColor(list[position]);
-            }else{
+            } else {
                 dots[i].setTextColor(getResources().getColor(R.color.black_white));
             }
         }
     }
 
     private void dotsMethod() {
-        list=new int[3];
-        list[0]=getResources().getColor(R.color.black_orange);
-        list[1]=getResources().getColor(R.color.black_orange);
-        list[2]=getResources().getColor(R.color.black_orange);
+        list = new int[3];
+        list[0] = getResources().getColor(R.color.black_orange);
+        list[1] = getResources().getColor(R.color.black_orange);
+        list[2] = getResources().getColor(R.color.black_orange);
 
-        dots=new TextView[3];
+        dots = new TextView[3];
         dotsIndicator();
     }
 
     private void dotsIndicator() {
         for (int i = 0; i < dots.length; i++) {
-            dots[i]=new TextView(requireActivity());
+            dots[i] = new TextView(requireActivity());
             dots[i].setText(Html.fromHtml("&#9679"));
             dots[i].setTextSize(18);
             binding.onBoardingIndicator.addView(dots[i]);
@@ -126,7 +126,7 @@ public class OnBoardFragment extends Fragment {
         binding.scrollView.setAdapter(adapter);
 
         binding.skip.setOnClickListener(view -> {
-            if (binding.scrollView.getCurrentItem()==0||binding.scrollView.getCurrentItem()==1){
+            if (binding.scrollView.getCurrentItem() == 0 || binding.scrollView.getCurrentItem() == 1) {
                 binding.scrollView.setCurrentItem(2);
             }
         });

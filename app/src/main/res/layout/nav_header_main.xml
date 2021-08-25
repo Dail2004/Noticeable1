@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="28dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="PlusUltra2000"
+        android:text="@string/acountNicename"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView

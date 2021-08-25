@@ -62,9 +62,9 @@ public class HomeFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener(Constants.REQUEST_KEY, getViewLifecycleOwner(), (requestKey, result) -> {
             NoteModel model = (NoteModel) result.getSerializable(Constants.BUNDLE_KEY);
             adapter.addTaskModel(model);
-            if (isDashboard){
+            if (isDashboard) {
                 binding.recyclerView.setLayoutManager(staggeredGridLayoutManager);
-            }else {
+            } else {
                 binding.recyclerView.setLayoutManager(linearLayoutManager);
             }
         });
@@ -98,8 +98,8 @@ public class HomeFragment extends Fragment {
 
     private void filter(String toString) {
         ArrayList<NoteModel> filterList = new ArrayList<>();
-        for (NoteModel item: list) {
-            if (item.getTextNote().toLowerCase().contains(toString.toLowerCase())){
+        for (NoteModel item : list) {
+            if (item.getTextNote().toLowerCase().contains(toString.toLowerCase())) {
                 filterList.add(item);
             }
         }
@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable  Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new NoteAdapter();
         setHasOptionsMenu(true);
@@ -141,15 +141,13 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.dashboard) {
             isDashboard = !isDashboard;
-            if (isDashboard){
+            if (isDashboard) {
                 item.setIcon(R.drawable.ic_format_list);
-            }else{
+            } else {
                 item.setIcon(R.drawable.ic_dashboard);
             }
-            binding.recyclerView.setLayoutManager(isDashboard? staggeredGridLayoutManager : linearLayoutManager);
+            binding.recyclerView.setLayoutManager(isDashboard ? staggeredGridLayoutManager : linearLayoutManager);
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

@@ -7,22 +7,25 @@
     <TextView
         android:id="@+id/item_title"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_margin="5.5dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="5.5dp"
+        android:layout_marginTop="5.5dp"
+        android:layout_marginEnd="5.5dp"
+        android:layout_marginBottom="5.5dp"
         android:background="@drawable/serch_title"
         android:paddingHorizontal="20dp"
         android:paddingTop="20dp"
-        android:text="Hello"
+        android:text=""
         android:textColor="#B1B1B1"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="20dp"
-        android:hint="date"
+        android:layout_height="60dp"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="10dp"
+        android:hint=""
         android:textColor="#616161"
         android:textColorHint="#616161" />
 

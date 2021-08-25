@@ -26,25 +26,26 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
 
 
     @SuppressLint("NotifyDataSetChanged")
-    public void filteredList(ArrayList<NoteModel> upFilteredList){
-        list=upFilteredList;
+    public void filteredList(ArrayList<NoteModel> upFilteredList) {
+        list = upFilteredList;
         notifyDataSetChanged();
     }
+
     @SuppressLint("NotifyDataSetChanged")
-    public void setList(List<NoteModel> list1){
+    public void setList(List<NoteModel> list1) {
         list.clear();
         list.addAll(list1);
         notifyDataSetChanged();
     }
 
-    public NoteModel getNoteAt(int position){
+    public NoteModel getNoteAt(int position) {
         return list.get(position);
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void delete(int position){
+    public void delete(int position) {
         list.remove(position);
-        notifyDataSetChanged();
+        notifyItemRemoved(position);
     }
 
     @NonNull
@@ -71,6 +72,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
             super(binding.getRoot());
             this.binding = binding;
         }
+
         private void OnBind(NoteModel s) {
             binding.date.setText(s.getDate());
             binding.itemTitle.setText(s.getTextNote());

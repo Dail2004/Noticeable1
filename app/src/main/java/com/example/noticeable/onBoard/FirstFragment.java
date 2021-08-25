@@ -19,7 +19,7 @@ public class FirstFragment extends Fragment {
     private String mTitle;
     private int mImage;
 
-    public FirstFragment(){
+    public FirstFragment() {
     }
 
     public static FirstFragment newInstance(String param1, int param2) {

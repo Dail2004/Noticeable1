@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="320dp"
         android:layout_marginTop="18dp"
-        android:text="Готово"
+        android:text="@string/ready"
         android:textColor="#D88B02"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/date"
-        android:text="date"
+        android:text="@string/date"
         android:textColor="#E5E5E5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,6 +40,6 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="50dp"
         android:gravity="start"
-        android:hint="Enter Text"
+        android:hint="@string/enter_text"
         android:textColorHint="@color/black_white" />
 </FrameLayout>

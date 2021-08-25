@@ -68,23 +68,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-                uri -> {
-                    try {
-                        final InputStream imageStream = getContentResolver().openInputStream(uri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
-                        byte[] b = baos.toByteArray();
-                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-                        sharedPreferences.edit().putString("image", encodedImage).commit();
-                        imageView.setImageURI(uri);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                });
+            uri -> {
+                try {
+                    final InputStream imageStream = getContentResolver().openInputStream(uri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                    byte[] b = baos.toByteArray();
+                    String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                    sharedPreferences.edit().putString("image", encodedImage).commit();
+                    imageView.setImageURI(uri);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+
     private void saveImageFromGallery() {
-        sharedPreferences=getSharedPreferences("", MODE_PRIVATE);
-        if (!sharedPreferences.getString("image","").equals("")){
+        sharedPreferences = getSharedPreferences("", MODE_PRIVATE);
+        if (!sharedPreferences.getString("image", "").equals("")) {
             byte[] decodedString = Base64.decode(sharedPreferences.getString("image", ""), Base64.DEFAULT);
             Bitmap decoctedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             imageView.setImageBitmap(decoctedByte);
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         PrefHelper.init(this);
-        if (!PrefHelper.getOnBoardIsShown()){
+        if (!PrefHelper.getOnBoardIsShown()) {
             navController.navigate(R.id.onBoardFragment);
             return;
         }

@@ -8,8 +8,20 @@
     <string name="action_settings">Settings</string>
     <string name="supp">SUPPORT</string>
 
-    <string name="menu_home"></string>
     <string name="menu_gallery">Настройки</string>
     <string name="menu_slideshow">О разроботчиках</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="acountNicename">PlusUltra2000</string>
+    <string name="smart">Smart Wallet</string>
+    <string name="ready">Готово</string>
+    <string name="date">date</string>
+    <string name="enter_text">Enter Text</string>
+    <string name="search">Поиск</string>
+    <string name="will_share">Поделится</string>
+    <string name="about_develope">О разработчиках</string>
+    <string name="exit">Выход</string>
+    <string name="receive_code">Получить код</string>
+    <string name="your_code">Ваш код</string>
+    <string name="your_number">Ввелите ваш номер</string>
+    <string name="send_code">Отправить снова</string>
 </resources>
